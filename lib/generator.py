@@ -12,18 +12,13 @@ import random
 
 @dataclass
 class MutationParameters:
+    #shear in the x,y directions
     shear_x: float = 1
     shear_y: float = 1
-    shear_z: float = 1
 
+    #min and max scaling of the original sprite (uniform scaling)
     scale_min: float = 1
     scale_max: float = 1
-
-    width_min: float = 1
-    width_max: float = 1
-
-    height_min: float = 1
-    height_max: float = 1
 
     rotation: bool = False
 
@@ -46,8 +41,11 @@ def generate_dataset(
         reference_image = random.choice(asset_paths)
         with Image.open(reference_image).convert("RGBA") as img:
             width, height = img.size
+
+            # make sure the reference image is not larger than the background
             assert(width <= res_x)
             assert(height <= res_y)
+            
             background = params.generate_background(res_x, res_y)
             background.paste(img, (0, 0), img)
 
