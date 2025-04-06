@@ -15,7 +15,7 @@ REFERENCE_BACKGROUNDS = [
 SAVE_PATH = DATASET_SAVE_PATH / "1"
 
 MUTATION_PARAMETERS = MutationParameters(
-    background = RandomNoiseReferenceImageBackground(reference_paths = REFERENCE_BACKGROUNDS, noise = 0.5),
+    #background = RandomNoiseReferenceImageBackground(reference_paths = REFERENCE_BACKGROUNDS, noise = 0.2),
 )
 
 generate_dataset(

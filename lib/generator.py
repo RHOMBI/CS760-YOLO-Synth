@@ -46,13 +46,13 @@ def generate_dataset(
             #do not scale the image so large that it is larger than the background
             params.scale_max = min(params.scale_max, background_width / reference_img_width, background_height / reference_img_height)
             params.scale_min = min(params.scale_min, params.scale_max)
-
-            #place the image at a random position on the background
-            random_offset_x = random.randint(0, background_width - reference_img_width)
-            random_offset_y = random.randint(0, background_height - reference_img_height)
-
+            
             #randomly scale the image (both axis uniformly)
             scale = random.uniform(params.scale_min, params.scale_max)
+
+            #place the image at a random position on the background
+            random_offset_x = random.randint(0, background_width - int(scale*reference_img_width+1))
+            random_offset_y = random.randint(0, background_height - int(scale*reference_img_height+1))
 
             img = img.resize((int(reference_img_width * scale), int(reference_img_height * scale)), Image.LANCZOS)
 
