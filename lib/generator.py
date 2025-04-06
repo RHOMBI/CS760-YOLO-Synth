@@ -9,7 +9,6 @@ from PIL import Image
 import numpy as np
 import random
 
-
 @dataclass
 class MutationParameters:
     #shear in the x,y directions
@@ -24,7 +23,7 @@ class MutationParameters:
 
     background: Union[RandomNoiseBackground, PerlinNoiseBackground, RandomNoiseReferenceImageBackground] = field(default_factory=RandomNoiseBackground)
 
-    def generate_background(self, res_x: int, res_y: int):
+    def generate_background(self, res_x: int, res_y: int) -> Image.Image:
         return self.background.generate_background(res_x, res_y)
 
 
