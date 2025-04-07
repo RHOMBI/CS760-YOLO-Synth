@@ -1,17 +1,21 @@
-from lib.generator import RandomNoiseBackground, MutationParameters, generate_dataset
+from lib.generator import RandomNoiseBackground, RandomNoiseReferenceImageBackground, MutationParameters, generate_dataset
 from pathlib import Path
 
 REFERENCE_IMAGE_PATH = Path("reference_images")
 DATASET_SAVE_PATH = Path("generated_datasets")
 
 REFERENCE_IMAGES = [
-    REFERENCE_IMAGE_PATH / "image.webp"
+    REFERENCE_IMAGE_PATH / "sprites" / "isaac.png"
+]
+
+REFERENCE_BACKGROUNDS = [
+    REFERENCE_IMAGE_PATH / "backgrounds" / "room1.webp"
 ]
 
 SAVE_PATH = DATASET_SAVE_PATH / "1"
 
 MUTATION_PARAMETERS = MutationParameters(
-    background = RandomNoiseBackground()
+    #background = RandomNoiseReferenceImageBackground(reference_paths = REFERENCE_BACKGROUNDS, noise = 0.2),
 )
 
 generate_dataset(
