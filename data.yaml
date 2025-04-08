@@ -1,0 +1,5 @@
+train: img/generated_datasets/pony/sample/images/train
+val: img/generated_datasets/pony/sample/images/val
+
+nc:  2
+names: ["Purple", "Pink"]

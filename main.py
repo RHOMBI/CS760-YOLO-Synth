@@ -1,28 +1,28 @@
+import os
 from lib.generator import RandomNoiseBackground, RandomNoiseReferenceImageBackground, MutationParameters, generate_dataset
 from pathlib import Path
 
-REFERENCE_IMAGE_PATH = Path("reference_images")
-DATASET_SAVE_PATH = Path("generated_datasets")
+REFERENCE_IMAGES_PATH = Path("img")
+BACKGROUND_IMAGES_PATH = Path("img")
 
-REFERENCE_IMAGES = [
-    REFERENCE_IMAGE_PATH / "sprites" / "isaac.png"
-]
+DATASET = "pony"
 
-REFERENCE_BACKGROUNDS = [
-    REFERENCE_IMAGE_PATH / "backgrounds" / "room1.webp"
-]
+DATASET_SAVE_PATH = Path("img/generated_datasets") / DATASET
 
-SAVE_PATH = DATASET_SAVE_PATH / "1"
+SAVE_PATH = DATASET_SAVE_PATH / "sample"
 
 MUTATION_PARAMETERS = MutationParameters(
-    #background = RandomNoiseReferenceImageBackground(reference_paths = REFERENCE_BACKGROUNDS, noise = 0.2),
+    background = RandomNoiseReferenceImageBackground(noise = 0.2),
 )
 
+os.makedirs(SAVE_PATH, exist_ok=True)
+
 generate_dataset(
-    asset_paths = REFERENCE_IMAGES,
+    sprites_path = REFERENCE_IMAGES_PATH / DATASET / "sprite",
+    backgrounds_path = BACKGROUND_IMAGES_PATH / DATASET / "background",
     save_path = SAVE_PATH,
-    count = 5,
+    count = 1000,
     params = MUTATION_PARAMETERS,
-    res_x = 1000,
-    res_y = 1000,
+    default_res_x = 1400,
+    default_res_y = 1000,
 )
