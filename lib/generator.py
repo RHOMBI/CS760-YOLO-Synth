@@ -36,7 +36,7 @@ class MutationParameters:
     rotation_min: float = -45
     rotation_max: float = 45
 
-    effect_count = 1
+    effect_count: int = 1
 
     background: Union[RandomNoiseBackground, PerlinNoiseBackground, RandomNoiseReferenceImageBackground] = field(default_factory=RandomNoiseBackground)
 
