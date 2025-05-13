@@ -1,1 +1,3 @@
 yolo train data=data.yaml model=yolov8m.pt epochs=100 imgsz=640
+
+predict

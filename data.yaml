@@ -1,5 +1,5 @@
-train: img/generated_datasets/pony/sample/images/train
-val: img/generated_datasets/pony/sample/images/val
+train: isaac/transfer/sample/images/train
+val: isaac/transfer/sample/images/val
 
-nc:  2
-names: ["Purple", "Pink"]
+nc:  4
+names: ["Bullet", "Enemy", "Item", "Player"]
