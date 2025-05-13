@@ -1,5 +1,5 @@
-train: isaac/engine/images/train
-val: isaac/engine/images/val
+train: isaac/transforming/images/train
+val: isaac/transforming/images/val
 
 nc:  4
 names: ["Bullet", "Enemy", "Item", "Player"]
