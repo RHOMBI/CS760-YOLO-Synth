@@ -5,14 +5,14 @@ from pathlib import Path
 REFERENCE_IMAGES_PATH = Path("img")
 BACKGROUND_IMAGES_PATH = Path("img")
 
-DATASET = "pony"
+DATASET = "isaac"
 
 DATASET_SAVE_PATH = Path("img/generated_datasets") / DATASET
 
 SAVE_PATH = DATASET_SAVE_PATH / "sample"
 
 MUTATION_PARAMETERS = MutationParameters(
-    background = RandomNoiseReferenceImageBackground(noise = 0.2),
+    background = RandomNoiseReferenceImageBackground(noise = 0.0),
 )
 
 os.makedirs(SAVE_PATH, exist_ok=True)

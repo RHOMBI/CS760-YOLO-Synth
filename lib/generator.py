@@ -18,23 +18,23 @@ class MutationParameters:
     shear_y: float = 1
 
     #min and max scaling of the original sprite (uniform scaling)
-    scale_min: float = 0.4
-    scale_max: float = 4
+    scale_min: float = 0.8
+    scale_max: float = 1.2
 
-    brightness_min: float = 0.7
-    brightness_max: float = 1.3
+    brightness_min: float = 0.8
+    brightness_max: float = 1.2
 
-    contrast_min: float = 0.7
-    contrast_max: float = 1.5
+    contrast_min: float = 0.9
+    contrast_max: float = 1.2
 
-    sharpness_min: float = 1.5
-    sharpness_max: float = 3.0
+    sharpness_min: float = 1.2
+    sharpness_max: float = 1.4
 
-    blur_min: float = 0.5
-    blur_max: float = 2.5
+    blur_min: float = 0.8
+    blur_max: float = 1.2
 
-    rotation_min: float = -45
-    rotation_max: float = 45
+    rotation_min: float = -1
+    rotation_max: float = 1
 
     effect_count: int = 1
 
@@ -106,6 +106,15 @@ class MutationParameters:
         
         return img
 
+cls_2_name = {
+    0: 0,  # bullet
+    1: 1,  # enemy
+    2: 1,  # enemy
+    4: 2,  # item
+    5: 2,  # item
+    6: 2,  # item
+    3: 3,  # player
+}
 
 def generate_dataset(
         sprites_path: Path,
@@ -120,21 +129,39 @@ def generate_dataset(
     sprite_files = [os.path.join(sprites_path, f) for f in os.listdir(sprites_path) if f.endswith(('png', 'jpg', 'jpeg'))]
     background_files = [os.path.join(backgrounds_path, f) for f in os.listdir(backgrounds_path) if f.endswith(('png', 'jpg', 'jpeg'))]
 
-    for i in range(0, count):
-        img_class = random.randrange(len(sprite_files))
-        sprite_image = Image.open(sprite_files[img_class]).convert("RGBA")
+    for i in range(count):
+        # 1) create one fresh background per output image
         background_image = params.generate_background(default_res_x, default_res_y, background_files)
 
-        sprite_image = params.apply_mutations(sprite_image, 1)
+        # 2) accumulate all the annotations for this image here
+        annotations = []
 
-        generated_image, generated_annotation = paste_sprite(background=background_image, sprite=sprite_image, class_id=img_class)
-        
+        for j in range(5):
+            # pick a random sprite class & load it
+            img_class = random.randrange(len(sprite_files))
+            sprite_image = Image.open(sprite_files[img_class]).convert("RGBA")
+
+            # apply any mutations (e.g. color jitter, flips)
+            sprite_image = params.apply_mutations(sprite_image, 1)
+
+            # paste it onto the background; paste_sprite returns the updated image
+            # plus a YOLO-style annotation line for that one sprite
+            background_image, single_annotation = paste_sprite(
+                background=background_image,
+                sprite=sprite_image,
+                class_id=cls_2_name[img_class]
+            )
+
+            annotations.append(single_annotation)
+
+        # 3) save the final composite
         img_name = f"gen_img_{i:04d}.png"
-        generated_image.save(os.path.join(save_path, img_name))
+        background_image.save(os.path.join(save_path, img_name))
 
+        # 4) write out all annotations (one per line)
         annotation_name = f"gen_img_{i:04d}.txt"
         with open(os.path.join(save_path, annotation_name), "w") as f:
-            f.write(generated_annotation)
+            f.write("\n".join(annotations))
 
 
 
