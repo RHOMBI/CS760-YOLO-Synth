@@ -9,7 +9,7 @@ os.makedirs('img/perturbed_img', exist_ok=True)
 # Read the original annotation
 def read_annotation(file_path):
     with open(file_path, 'r') as f:
-        return f.readline().strip()
+        return f.read().strip()
 
 # Save the annotation file
 def save_annotation(annotation, file_path):
