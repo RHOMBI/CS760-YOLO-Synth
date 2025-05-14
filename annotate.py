@@ -55,10 +55,10 @@ def generate_dataset(num_images):
     for i in range(1, num_images + 1):
         # Randomly select the sprite folders and their maximum counts
         sprite_folders = {
-            'player': {'path': os.path.join(sprite_base_folder, 'player'), 'max': 1, 'class_id': 0},
-            'bullet': {'path': os.path.join(sprite_base_folder, 'bullet'), 'max': random.randint(0, 3), 'class_id': 1},
-            'enemy': {'path': os.path.join(sprite_base_folder, 'enemy'), 'max': random.randint(0, 3), 'class_id': 2},
-            'item': {'path': os.path.join(sprite_base_folder, 'items'), 'max': random.randint(0, 1), 'class_id': 3},
+            'bullet': {'path': os.path.join(sprite_base_folder, 'bullet'), 'max': random.randint(0, 3), 'class_id': 0},
+            'enemy': {'path': os.path.join(sprite_base_folder, 'enemy'), 'max': random.randint(0, 3), 'class_id': 1},
+            'item': {'path': os.path.join(sprite_base_folder, 'items'), 'max': random.randint(0, 1), 'class_id': 2},
+            'player': {'path': os.path.join(sprite_base_folder, 'player'), 'max': 1, 'class_id': 3},
         }
 
         background_path = random.choice(background_files)
