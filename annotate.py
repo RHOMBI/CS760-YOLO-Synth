@@ -55,10 +55,16 @@ def generate_dataset(num_images):
     for i in range(1, num_images + 1):
         # Randomly select the sprite folders and their maximum counts
         sprite_folders = {
-            'bullet': {'path': os.path.join(sprite_base_folder, 'bullet'), 'max': random.randint(0, 3), 'class_id': 0},
-            'enemy': {'path': os.path.join(sprite_base_folder, 'enemy'), 'max': random.randint(0, 3), 'class_id': 1},
-            'item': {'path': os.path.join(sprite_base_folder, 'items'), 'max': random.randint(0, 1), 'class_id': 2},
-            'player': {'path': os.path.join(sprite_base_folder, 'player'), 'max': 1, 'class_id': 3},
+            'Player': {'path': os.path.join(sprite_base_folder, 'Player'), 'max': 1, 'class_id': 0},
+            'Tear': {'path': os.path.join(sprite_base_folder, 'Tear'), 'max': random.randint(0, 2), 'class_id': 1},
+            'Bullet': {'path': os.path.join(sprite_base_folder, 'Bullet'), 'max': random.randint(0, 2), 'class_id': 2},
+            'Poop': {'path': os.path.join(sprite_base_folder, 'Poop'), 'max': random.randint(0, 1), 'class_id': 3},
+            'FLy': {'path': os.path.join(sprite_base_folder, 'Fly'), 'max': random.randint(0, 1), 'class_id': 4},
+            'Hopper': {'path': os.path.join(sprite_base_folder, 'Hopper'), 'max': random.randint(0, 1), 'class_id': 5},
+            'Round_worm': {'path': os.path.join(sprite_base_folder, 'Round_worm'), 'max': random.randint(0, 1), 'class_id': 6},
+            'Horf': {'path': os.path.join(sprite_base_folder, 'Horf'), 'max': random.randint(0, 1), 'class_id': 7},
+            'Mulligan': {'path': os.path.join(sprite_base_folder, 'Bullet'), 'max': random.randint(0, 1), 'class_id': 8},
+            'Vase': {'path': os.path.join(sprite_base_folder, 'Vase'), 'max': random.randint(0, 1), 'class_id': 9}
         }
 
         background_path = random.choice(background_files)
@@ -93,4 +99,4 @@ def generate_dataset(num_images):
             f.write("\n".join(annotations))
 
 # Example usage
-generate_dataset(100)
+generate_dataset(1000)
