@@ -63,7 +63,7 @@ def generate_dataset(num_images):
             'Hopper': {'path': os.path.join(sprite_base_folder, 'Hopper'), 'max': random.randint(0, 1), 'class_id': 5},
             'Round_worm': {'path': os.path.join(sprite_base_folder, 'Round_worm'), 'max': random.randint(0, 1), 'class_id': 6},
             'Horf': {'path': os.path.join(sprite_base_folder, 'Horf'), 'max': random.randint(0, 1), 'class_id': 7},
-            'Mulligan': {'path': os.path.join(sprite_base_folder, 'Bullet'), 'max': random.randint(0, 1), 'class_id': 8},
+            'Mulligan': {'path': os.path.join(sprite_base_folder, 'Mulligan'), 'max': random.randint(0, 1), 'class_id': 8},
             'Vase': {'path': os.path.join(sprite_base_folder, 'Vase'), 'max': random.randint(0, 1), 'class_id': 9}
         }
 
