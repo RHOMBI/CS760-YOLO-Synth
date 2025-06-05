@@ -1,0 +1,19 @@
+name: yolov8
+channels:
+  - nvidia       # for CUDA toolkit
+  - pytorch      # for PyTorch packages
+  - conda-forge  # for other scientific libs
+
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      # pull CUDA 12.8–enabled PyTorch wheels, but keep default PyPI for other packages
+      - --extra-index-url https://download.pytorch.org/whl/cu128
+      - torch
+      - torchvision
+      - torchaudio
+      - ultralytics
+      - ultralytics-thop>=2.0.0
+      - numpy
+      - opencv-python

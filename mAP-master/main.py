@@ -9,7 +9,7 @@ import math
 
 import numpy as np
 
-MINOVERLAP = 0.5 # default value (defined in the PASCAL VOC2012 challenge)
+DEFAULT_MINOVERLAP  = 0.5 # default value (defined in the PASCAL VOC2012 challenge)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-na', '--no-animation', help="no animation is shown.", action="store_true")
@@ -19,7 +19,19 @@ parser.add_argument('-q', '--quiet', help="minimalistic console output.", action
 parser.add_argument('-i', '--ignore', nargs='+', type=str, help="ignore a list of classes.")
 # argparse receiving list of classes with specific IoU (e.g., python main.py --set-class-iou person 0.7)
 parser.add_argument('--set-class-iou', nargs='+', type=str, help="set IoU for a specific class.")
+
+parser.add_argument(
+    '--min-overlap', '-mo',
+    type=float,
+    default=DEFAULT_MINOVERLAP,
+    help="Minimum Intersection-over-Union (IoU) threshold"
+)
+
 args = parser.parse_args()
+
+MINOVERLAP = args.min_overlap
+
+print(f"MINOVERLAP: {MINOVERLAP}")
 
 '''
     0,0 ------> x (width)
@@ -325,8 +337,8 @@ def draw_plot_func(dictionary, n_classes, window_title, plot_title, x_label, out
     # save the plot
     fig.savefig(output_path)
     # show image
-    if to_show:
-        plt.show()
+    # if to_show:
+    #     plt.show()
     # close the plot
     plt.close()
 
@@ -644,7 +656,7 @@ with open(output_files_path + "/output.txt", 'w') as output_file:
                 cv2.rectangle(img_cumulative,(bb[0],bb[1]),(bb[2],bb[3]),color,2)
                 cv2.putText(img_cumulative, class_name, (bb[0],bb[1] - 5), font, 0.6, color, 1, cv2.LINE_AA)
                 # show image
-                cv2.imshow("Animation", img)
+                #cv2.imshow("Animation", img)
                 cv2.waitKey(20) # show for 20 ms
                 # save image to output
                 output_img_path = output_files_path + "/images/detections_one_by_one/" + class_name + "_detection" + str(idx) + ".jpg"

@@ -24,3 +24,22 @@ def paste_sprite(background, sprite, class_id=0):
 
     annotation = f"{class_id} {center_x:.6f} {center_y:.6f} {rel_width:.6f} {rel_height:.6f}"
     return background, annotation
+
+def paste_sprite_at(background, sprite, x, y, class_id=0):
+    bg_width, bg_height = background.size
+    sprite_width, sprite_height = sprite.size
+
+    #the x and y coordinates are given as the center of the sprite
+    x = int(x * bg_width - sprite_width / 2)
+    y = int(y * bg_height - sprite_height / 2)
+
+    background.paste(sprite, (x, y), sprite if sprite.mode == 'RGBA' else None)
+
+    # Calculate YOLO formatted coordinates
+    center_x = (x + sprite_width / 2) / bg_width
+    center_y = (y + sprite_height / 2) / bg_height
+    rel_width = sprite_width / bg_width
+    rel_height = sprite_height / bg_height
+
+    annotation = f"{class_id} {center_x:.6f} {center_y:.6f} {rel_width:.6f} {rel_height:.6f}"
+    return background, annotation

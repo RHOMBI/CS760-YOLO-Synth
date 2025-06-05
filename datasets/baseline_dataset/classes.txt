@@ -1,0 +1,10 @@
+0_Player
+1_Tear
+2_Bullet
+3_Poop
+4_Fly
+5_Hopper
+6_Round worm
+7_Horf
+8_Mulligan
+9_Vase

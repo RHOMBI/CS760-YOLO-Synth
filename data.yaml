@@ -1,5 +1,5 @@
-train: isaac/transforming/images/train
-val: isaac/transforming/images/val
+train: datasets/yards_dataset/sample/images/train
+val: datasets/yards_dataset/sample/images/val
 
-nc:  4
-names: ["Bullet", "Enemy", "Item", "Player"]
+nc:  10
+names: ["0_Player", "1_Tear", "2_Bullet", "3_Poop", "4_Fly", "5_Hopper", "6_Round worm", "7_Horf", "8_Mulligan", "9_Vase"]

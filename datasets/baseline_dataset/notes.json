@@ -1,0 +1,49 @@
+{
+  "categories": [
+    {
+      "id": 0,
+      "name": "0_Player"
+    },
+    {
+      "id": 1,
+      "name": "1_Tear"
+    },
+    {
+      "id": 2,
+      "name": "2_Bullet"
+    },
+    {
+      "id": 3,
+      "name": "3_Poop"
+    },
+    {
+      "id": 4,
+      "name": "4_Fly"
+    },
+    {
+      "id": 5,
+      "name": "5_Hopper"
+    },
+    {
+      "id": 6,
+      "name": "6_Round worm"
+    },
+    {
+      "id": 7,
+      "name": "7_Horf"
+    },
+    {
+      "id": 8,
+      "name": "8_Mulligan"
+    },
+    {
+      "id": 9,
+      "name": "9_Vase"
+    }
+  ],
+  "info": {
+    "year": 2025,
+    "version": "1.0",
+    "contributor": "Label Studio"
+  }
+}
