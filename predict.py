@@ -12,7 +12,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument(
     "-m", "--model-path",
     type=str,
-    default="runs_diffusion/train/weights/best.pt",
+    default="runs_engine/train/weights/best.pt",
     help="path to the .pt weights file"
 )  # default is your current hard-coded path :contentReference[oaicite:0]{index=0}
 

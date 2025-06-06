@@ -1,5 +1,5 @@
-train: datasets/diffusion_dataset2/images/train
-val: datasets/diffusion_dataset2/images/val
+train: datasets/engine_dataset/images/train
+val: datasets/engine_dataset/images/val
 
 nc:  10
 names: ["0_Player", "1_Tear", "2_Bullet", "3_Poop", "4_Fly", "5_Hopper", "6_Round worm", "7_Horf", "8_Mulligan", "9_Vase"]

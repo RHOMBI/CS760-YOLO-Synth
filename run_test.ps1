@@ -24,7 +24,7 @@ $MainPy    = Join-Path $ScriptDir 'mAP-master' 'main.py'
 # 4) Models to process
 $models = @(
     @{ Label='BASELINE';  Dir='runs_baseline'  },
-    @{ Label='DIFFUSION'; Dir='runs_diffusion' },
+    @{ Label='DIFFUSION'; Dir='runs_diffusion2' },
     @{ Label='ENGINE';    Dir='runs_engine'    },
     @{ Label='PERTURBED'; Dir='runs_perturbed' },
     @{ Label='PSEUDO';    Dir='runs_pseudo'    },
@@ -32,10 +32,12 @@ $models = @(
 )
 
 # 5) Loop 0.1 → 0.9
-for ($i = 1; $i -le 9; $i++) {
-    $min    = [math]::Round($i/10, 1)
+#for ($i = 1; $i -le 9; $i++) {
+for ($i = 1; $i -le 1; $i++) {
+    #$min    = [math]::Round($i/10, 1)
+    $min = 0.5
     $minStr = $min.ToString('0.0')
-    $ignoreClasses = @(2, 3)
+    $ignoreClasses = @(2)
     $LogFile = Join-Path $LogDir "inference_minOverlap_$minStr.log"
 
     # Header
