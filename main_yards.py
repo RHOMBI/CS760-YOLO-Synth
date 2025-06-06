@@ -9,7 +9,11 @@ import math
 
 from typing import Dict, List, Tuple
 
+import numpy as np
+
 from lib.annotate import paste_sprite, paste_sprite_at
+from lib.background import RandomNoiseReferenceImageBackground
+from lib.generator import MutationParameters
 
 CLASS_COUNT = 10
 
@@ -126,50 +130,60 @@ def generate_dataset(
         count: int,
         train: float = 0.8,
 ):
-   backgrounds = []
-   for f in backgrounds_path.iterdir():
-      if f.suffix.lower() in ('.png', '.jpg', '.jpeg'):
-         img = Image.open(f)
-         backgrounds.append(img)
+    backgrounds = []
+    for f in backgrounds_path.iterdir():
+        if f.suffix.lower() in ('.png', '.jpg', '.jpeg'):
+            img = Image.open(f)
+            backgrounds.append(img)
 
-   sprites_per_class = [[] for _ in range(CLASS_COUNT)]
-   for i, cls in enumerate(classes):
-      class_dir = sprites_path / cls
-      for f in class_dir.iterdir():
-         if f.suffix.lower() in ('.png', '.jpg', '.jpeg'):
-               sprites_per_class[i].append(Image.open(f))
-   
-   folder = "train"
-   for i in range(0, count):
-      if i > train * count:
-         folder = "val"
+    sprites_per_class = [[] for _ in range(CLASS_COUNT)]
+    for i, cls in enumerate(classes):
+        class_dir = sprites_path / cls
+        for f in class_dir.iterdir():
+            if f.suffix.lower() in ('.png', '.jpg', '.jpeg'):
+                sprites_per_class[i].append(Image.open(f))
+    
+    folder = "train"
+    for i in range(0, count):
+        if i > train * count:
+            folder = "val"
 
-      print(f"Generating image {i + 1}/{count}...")
-      background_image = random.choice(backgrounds).copy()
-      annotations = []
-      for (class_id, sprite_files) in enumerate(sprites_per_class):
-         paste_count = random.choice(frequency_space[class_id])
+        print(f"Generating image {i + 1}/{count}...")
+        background_image = random.choice(backgrounds).copy()
+        annotations = []
+        for (class_id, sprite_files) in enumerate(sprites_per_class):
+            paste_count = random.choice(frequency_space[class_id])
 
-         for j in range(paste_count):
-            sprite_image = random.choice(sprite_files)
+            for j in range(paste_count):
+                sprite_image = random.choice(sprite_files)
 
-            x_norm, y_norm = get_sampled_coordinates(class_id)
-            print(f"  Pasting sprite {j + 1}/{paste_count} of class {class_id} at ({x_norm:.2f}, {y_norm:.2f})")
-            background_image, ann = paste_sprite_at(background=background_image, sprite=sprite_image, x=x_norm, y=y_norm, class_id=class_id)
-            annotations.append(ann)
+                # params = MutationParameters(background = RandomNoiseReferenceImageBackground(noise=0.2))
+                # sprite_image = params.apply_mutations(sprite_image, 1)  # one mutation
 
-      img_name = f"gen_img_{i:04d}.png"
+                x_norm, y_norm = get_sampled_coordinates(class_id)
+                print(f"  Pasting sprite {j + 1}/{paste_count} of class {class_id} at ({x_norm:.2f}, {y_norm:.2f})")
+                background_image, ann = paste_sprite_at(background=background_image, sprite=sprite_image, x=x_norm, y=y_norm, class_id=class_id)
+                annotations.append(ann)
 
-      img_dir = os.path.join(save_path, "images", folder)
-      os.makedirs(img_dir, exist_ok=True)
-      labels_dir = os.path.join(save_path, "labels", folder)
-      os.makedirs(labels_dir, exist_ok=True)
+        # noise_array = np.random.randint(0, 256, (background_image.height, background_image.width, 3), dtype=np.uint8)
+        # noise_image = Image.fromarray(noise_array, "RGB")
+        # background_image = Image.blend(background_image.convert("RGBA"), noise_image.convert("RGBA"), 0.1)
 
-      background_image.save(os.path.join(img_dir, img_name))
+        img_name = f"gen_img_{i:04d}.png"
 
-      annotation_name = f"gen_img_{i:04d}.txt"
-      with open(os.path.join(labels_dir, annotation_name), "w+") as f:
-         f.write("\n".join(annotations))
+        img_dir = os.path.join(save_path, "images", folder)
+        os.makedirs(img_dir, exist_ok=True)
+        labels_dir = os.path.join(save_path, "labels", folder)
+        os.makedirs(labels_dir, exist_ok=True)
+
+        background_image.save(os.path.join(img_dir, img_name))
+
+        annotation_name = f"gen_img_{i:04d}.txt"
+        with open(os.path.join(labels_dir, annotation_name), "w+") as f:
+            f.write("\n".join(annotations))
+
+        #print save dir
+        print(f"Saved image and annotations to {img_dir} and {labels_dir}")
 
 load_classes(CLASSES_PATH)
 calculate_frequency_space(REFERENCE_ANNOTATIONS_PATH)

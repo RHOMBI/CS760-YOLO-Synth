@@ -5,7 +5,7 @@ from pathlib import Path
 REFERENCE_IMAGES_PATH = Path("img")
 BACKGROUND_IMAGES_PATH = Path("img")
 
-DATASET = "pony"
+DATASET = "isaac"
 
 DATASET_SAVE_PATH = Path("img/generated_datasets") / DATASET
 

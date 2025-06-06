@@ -28,7 +28,9 @@ $models = @(
     @{ Label='ENGINE';    Dir='runs_engine'    },
     @{ Label='PERTURBED'; Dir='runs_perturbed' },
     @{ Label='PSEUDO';    Dir='runs_pseudo'    },
-    @{ Label='YARDS';     Dir='runs_yards'     }
+    @{ Label='YARDS';     Dir='runs_yards'     },
+    @{ Label='ORIGINAL';     Dir='runs_original'     },
+    @{ Label='YARDS_ORIGINAL';     Dir='runs_yards_original'     }
 )
 
 # 5) Loop 0.1 → 0.9
