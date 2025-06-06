@@ -1,6 +1,10 @@
 import os
 import torch
 
+import time
+
+start = time.time()
+
 # ========== Monkey-patch for PyTorch 2.8+ ==========
 # In PyTorch 2.8+, `_cuda_endAllocateCurrentStreamToPool` was removed.
 # Create an alias to `_cuda_endAllocateToPool` if needed.
@@ -117,3 +121,6 @@ for i in tqdm(range(num_images), desc="生成图像"):
         f.write("\n".join(labels))
 
 print("\n✅ 所有图像与 YOLO 标签已成功生成！")
+
+end = time.time()
+print(f"Elapsed: {end - start:.3f} seconds")
